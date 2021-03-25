@@ -4,12 +4,12 @@ public class Main {
     public static void main(String[] args) {
         Cliente c = new Cliente("Dandan");
 
-        Anuncio a1 = new Video("Vidiozin");
-        Anuncio a2 = new Imagem("image");
-        Anuncio a3 = new Texto("brttexto");
+        Anuncio a1 = new Anuncio("Vidiozin", 1);
+        Anuncio a2 = new Anuncio("image", 0);
+        Anuncio a3 = new Anuncio("brttexto", 2);
 
         Compra c1 = new Compra(a1, 2);
-        Compra c2 = new Compra(a2, 4);
+        Compra c2 = new Compra(a2, 3);
         Compra c3 = new Compra(a3, 6);
 
         c.addCompra(c1);
