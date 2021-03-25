@@ -28,7 +28,7 @@ class Cliente {
 	
 	public String historico() {
 		String resultado = "Historico de compras de anuncios por " + getNome() + "\n"
-				+ detalhesCompra()
+				+ detalhesCompras()
 				+ "Total devido é " + String.valueOf(total) + "\n"
 				+ "Voce ganhou " + String.valueOf(pontosFRequentes) + " pontos";
 		return resultado;
@@ -36,14 +36,17 @@ class Cliente {
 
 	}
 
-	public String detalhesCompra(){
+	public String detalhesCompras(){
 		String resultado = "";
 		Enumeration comprasAnuncio = compras.elements();
 		while (comprasAnuncio.hasMoreElements()) {
-			Compra compra = (Compra) comprasAnuncio.nextElement();
-			resultado += compra.toString();
+			resultado += this.detalhesCompra((Compra) comprasAnuncio.nextElement());
 		}
 		return resultado;
+	}
+
+	public String detalhesCompra(Compra compra){
+		return compra.toString();
 	}
 
 }
