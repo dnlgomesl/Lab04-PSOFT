@@ -1,6 +1,6 @@
 package bigExampleLab;
 
-public class Anuncio {
+public abstract class Anuncio {
 
 	protected String descricao;
 	protected double precoBase;
