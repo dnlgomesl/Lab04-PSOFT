@@ -5,8 +5,11 @@ import java.util.Vector;
 
 
 class Cliente {
+
 	private String nome;
 	private Vector compras = new Vector();
+	private double total;
+	private int pontosFRequentes;
 
 	public Cliente(String nome) {
 		this.nome = nome;
@@ -14,6 +17,9 @@ class Cliente {
 
 	public void addCompra(Compra arg) {
 		compras.addElement(arg);
+		total += arg.getTotal();
+		pontosFRequentes++;
+		pontosFRequentes += arg.morePoints();
 	}
 
 	public String getNome() {
@@ -21,35 +27,22 @@ class Cliente {
 	}
 	
 	public String historico() {
-		double total = 0;
-		int pontosFRequentes = 0;
+		String resultado = "Historico de compras de anuncios por " + getNome() + "\n"
+				+ detalhesCompra()
+				+ "Total devido é " + String.valueOf(total) + "\n"
+				+ "Voce ganhou " + String.valueOf(pontosFRequentes) + " pontos";
+		return resultado;
+
+
+	}
+
+	public String detalhesCompra(){
+		String resultado = "";
 		Enumeration comprasAnuncio = compras.elements();
-		String resultado = "Historico de compras de anuncios por " + getNome() + "\n";
 		while (comprasAnuncio.hasMoreElements()) {
-			double totalParcial = 0;
-			Compra cada = (Compra) comprasAnuncio.nextElement();
-			switch (cada.getAnuncio().getCodigoPreco()) {
-			case Anuncio.IMAGEM:
-				totalParcial += 2;
-				if (cada.getDiasAnuncio() > 2)
-					break;
-			case Anuncio.VIDEO:
-				totalParcial += cada.getDiasAnuncio() * 3;
-				break;
-			case Anuncio.TEXTO:
-				totalParcial += 1.5;
-				if (cada.getDiasAnuncio() > 3)
-					totalParcial += (cada.getDiasAnuncio() - 3) * 1.5;
-				break;
-			}
-			pontosFRequentes++;
-			if ((cada.getAnuncio().getCodigoPreco() == Anuncio.VIDEO) && cada.getDiasAnuncio() > 1)
-				pontosFRequentes++;
-			resultado += "\t" + cada.getAnuncio().getDescricao() + "\t" + String.valueOf(totalParcial) + "\n";
-			total += totalParcial;
+			Compra compra = (Compra) comprasAnuncio.nextElement();
+			resultado += compra.toString();
 		}
-		resultado += "Total devido é " + String.valueOf(total) + "\n";
-		resultado += "Voce ganhou " + String.valueOf(pontosFRequentes) + " pontod";
 		return resultado;
 	}
 
